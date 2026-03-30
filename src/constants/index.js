@@ -16,4 +16,4 @@ export const MODEL_NAME = "tiiuae/falcon3-7b-instruct";
 
 // Use Vite's dev proxy (/api/nvidia → https://integrate.api.nvidia.com)
 // This avoids CORS errors when calling the API directly from the browser.
-export const API_BASE = "/api/nvidia/v1/chat/completions";
+export const API_BASE = "/api/chat";

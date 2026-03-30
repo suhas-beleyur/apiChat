@@ -5,11 +5,10 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      // All requests to /api/nvidia will be forwarded to NVIDIA's API
-      "/api/nvidia": {
+      "/api/chat": {
         target: "https://integrate.api.nvidia.com",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/nvidia/, ""),
+        rewrite: () => "/v1/chat/completions",
         secure: true,
       },
     },
