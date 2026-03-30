@@ -1,0 +1,105 @@
+.chat-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.chat-header {
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-chat);
+}
+
+.chat-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.header-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.icon-btn {
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  transition: all 0.15s;
+}
+
+.icon-btn:hover {
+  background: rgba(255,255,255,0.05);
+  color: var(--text-secondary);
+}
+
+.messages-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px 0;
+  scroll-behavior: smooth;
+}
+
+.messages-container::-webkit-scrollbar { width: 4px; }
+.messages-container::-webkit-scrollbar-track { background: transparent; }
+.messages-container::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 4px; }
+
+/* ── API key button states ──────────────────────────────────────────────── */
+.key-btn { font-size: 16px; }
+
+.key-active {
+  border-color: rgba(34, 197, 94, 0.4);
+  color: #22c55e;
+}
+
+.key-missing {
+  border-color: rgba(234, 179, 8, 0.5);
+  color: #eab308;
+  animation: pulse-warn 2s ease-in-out infinite;
+}
+
+@keyframes pulse-warn {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(234, 179, 8, 0); }
+  50%       { box-shadow: 0 0 0 4px rgba(234, 179, 8, 0.2); }
+}
+
+/* ── No-key banner ──────────────────────────────────────────────────────── */
+.no-key-banner {
+  background: linear-gradient(90deg, rgba(234, 179, 8, 0.12), rgba(234, 179, 8, 0.06));
+  border-bottom: 1px solid rgba(234, 179, 8, 0.25);
+  padding: 8px 24px;
+  font-size: 0.8rem;
+  color: #ca8a04;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.banner-link {
+  background: transparent;
+  border: none;
+  color: #eab308;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  font-size: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.banner-link:hover {
+  color: #fbbf24;
+}
+
