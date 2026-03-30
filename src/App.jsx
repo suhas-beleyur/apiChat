@@ -12,6 +12,7 @@ export default function App() {
     sendMessage,
     startNewChat,
     loadSession,
+    clearHistory,
   } = useChatStore();
 
   return (
@@ -27,6 +28,8 @@ export default function App() {
         loading={loading}
         streamText={streamText}
         onSend={sendMessage}
+        onClearHistory={clearHistory}
+        activeId={activeId}
       />
     </div>
   );

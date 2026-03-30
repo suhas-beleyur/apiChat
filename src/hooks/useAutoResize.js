@@ -1,9 +1,5 @@
 import { useRef } from "react";
 
-/**
- * Provides a ref and a trigger function that auto-resizes a textarea
- * based on its content, up to a given max height (default 180px).
- */
 export function useAutoResize(maxHeight = 180) {
   const ref = useRef(null);
 

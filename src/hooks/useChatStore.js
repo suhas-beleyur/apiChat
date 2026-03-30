@@ -13,7 +13,6 @@ function loadActiveId() {
   return localStorage.getItem(ACTIVE_KEY) || null;
 }
 
-// System prompt — keeps the model warm, humble, and coding-focused
 const SYSTEM_MSG = {
   role: "system",
   content: `You are Codeer, a friendly and humble AI coding assistant. 
@@ -33,16 +32,14 @@ export function useChatStore() {
   const [loading, setLoading]       = useState(false);
   const [streamText, setStreamText] = useState("");
 
-  // Refs so async callbacks always read the LATEST state — fixes stale-closure bugs
   const sessionsRef = useRef(sessions);
   const activeIdRef = useRef(activeId);
   sessionsRef.current = sessions;
   activeIdRef.current = activeId;
 
-  // ── Persist to localStorage on every change ────────────────────────────
   useEffect(() => {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(sessions)); }
-    catch { /* storage full — silently ignore */ }
+    catch {}
   }, [sessions]);
 
   useEffect(() => {
@@ -50,11 +47,9 @@ export function useChatStore() {
     else          localStorage.removeItem(ACTIVE_KEY);
   }, [activeId]);
 
-  // Derived — only for rendering
   const activeSession = sessions.find((s) => s.id === activeId) ?? null;
   const messages      = activeSession?.messages ?? [];
 
-  // ── Helpers ───────────────────────────────────────────────────────────────
   const updateSession = (id, updater) => {
     setSessions((prev) =>
       prev.map((s) => (s.id === id ? { ...s, ...updater(s) } : s))
@@ -71,12 +66,18 @@ export function useChatStore() {
     setStreamText("");
   };
 
-  // ── Send message ──────────────────────────────────────────────────────────
+  const clearHistory = () => {
+    setSessions([]);
+    setActiveId(null);
+    setStreamText("");
+    localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(ACTIVE_KEY);
+  };
+
   const sendMessage = async (userText) => {
     const text = userText?.trim();
     if (!text || loading) return;
 
-    // ── No API key guard ──────────────────────────────────────────────────
     if (!API_KEY) {
       const noKeyMsg = {
         role: "assistant",
@@ -98,12 +99,10 @@ export function useChatStore() {
       return;
     }
 
-    // ── Read LATEST activeId from ref (not stale closure) ─────────────────
     let sessionId = activeIdRef.current;
     const userMsg = { role: "user", content: text };
 
     if (!sessionId) {
-      // Brand-new session — create it with the user message already inside
       sessionId = Date.now().toString();
       setSessions((prev) => [
         { id: sessionId, title: text.slice(0, 50), messages: [userMsg] },
@@ -111,8 +110,6 @@ export function useChatStore() {
       ]);
       setActiveId(sessionId);
     } else {
-      // Existing session — append user message using functional updater
-      // so we always read the LATEST session messages (not stale closure)
       updateSession(sessionId, (s) => ({
         messages: [...s.messages, userMsg],
       }));
@@ -121,21 +118,12 @@ export function useChatStore() {
     setLoading(true);
     setStreamText("");
 
-    // ── Fetch from NVIDIA ─────────────────────────────────────────────────
     try {
-      // Read the session's messages fresh from the setter's prev to build the API payload
-      // We pass sessionId into a local var so the async closure always has the right ID
       const capturedSessionId = sessionId;
 
-      // Get the history at the time of sending (from the ref, which is always current)
       const sessionAtSend = sessionsRef.current.find((s) => s.id === capturedSessionId);
-      // If this is a new session (just added via setSessions above), it may not yet be in
-      // sessionsRef.current, so fall back to just [userMsg]
-      const historyForApi = sessionAtSend
-        ? [...sessionAtSend.messages]
-        : [userMsg];
+      const historyForApi = sessionAtSend ? [...sessionAtSend.messages] : [userMsg];
 
-      // Ensure userMsg is the last entry (it might not be if the ref hasn't updated yet)
       const apiMessages =
         historyForApi[historyForApi.length - 1]?.content === text &&
         historyForApi[historyForApi.length - 1]?.role === "user"
@@ -188,13 +176,10 @@ export function useChatStore() {
             const delta  = parsed.choices?.[0]?.delta?.content || "";
             fullText    += delta;
             setStreamText(fullText);
-          } catch {
-            // ignore malformed SSE chunks
-          }
+          } catch {}
         }
       }
 
-      // Append assistant reply to the CORRECT session using functional updater
       updateSession(capturedSessionId, (s) => ({
         messages: [...s.messages, { role: "assistant", content: fullText }],
       }));
@@ -221,5 +206,6 @@ export function useChatStore() {
     sendMessage,
     startNewChat,
     loadSession,
+    clearHistory,
   };
 }

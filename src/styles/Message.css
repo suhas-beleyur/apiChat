@@ -64,7 +64,62 @@
 
 .message-row.user .message-bubble { order: 1; }
 
-/* Code formatting inside messages */
+/* Code block with header */
+.code-block-wrap {
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid rgba(99,102,241,0.25);
+  overflow: hidden;
+}
+
+.code-block-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(99,102,241,0.12);
+  padding: 6px 12px;
+  border-bottom: 1px solid rgba(99,102,241,0.15);
+}
+
+.code-lang {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #a5b4fc;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.copy-code-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 5px;
+  color: #94a3b8;
+  font-size: 11px;
+  font-family: var(--font-display);
+  padding: 3px 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.copy-code-btn:hover {
+  background: rgba(255,255,255,0.08);
+  color: #e2e8f0;
+  border-color: rgba(255,255,255,0.25);
+}
+
+.code-block-wrap pre {
+  background: #0d0d1a;
+  padding: 14px 16px;
+  margin: 0;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
 .message-bubble pre {
   background: rgba(0,0,0,0.4);
   border: 1px solid var(--border);
@@ -78,19 +133,21 @@
 
 .message-bubble code {
   font-family: var(--font-mono);
-  background: rgba(99,102,241,0.12);
-  border: 1px solid rgba(99,102,241,0.2);
-  padding: 1px 5px;
+  background: rgba(99,102,241,0.15);
+  border: 1px solid rgba(99,102,241,0.25);
+  padding: 2px 6px;
   border-radius: 4px;
   font-size: 12px;
-  color: #a5b4fc;
+  color: #c4b5fd;
 }
 
-.message-bubble pre code {
+.message-bubble pre code,
+.code-block-wrap pre code {
   background: transparent;
   border: none;
   padding: 0;
-  color: #c4c9e8;
+  color: #dde1ff;
+  font-size: 13px;
 }
 
 /* Typing dots */
@@ -107,4 +164,14 @@
 @keyframes bounce {
   0%, 60%, 100% { transform: translateY(0); }
   30%            { transform: translateY(-6px); }
+}
+
+.message-bubble strong {
+  color: #e2e8f0;
+  font-weight: 700;
+}
+
+.message-bubble em {
+  color: #c4b5fd;
+  font-style: italic;
 }
