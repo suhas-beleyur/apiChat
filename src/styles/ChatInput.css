@@ -72,3 +72,44 @@
   color: var(--text-muted);
   font-family: var(--font-mono);
 }
+
+/* ── Mobile responsive ─────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .input-area {
+    padding: 12px 14px 16px;
+  }
+
+  .input-box {
+    padding: 8px 10px 8px 14px;
+    border-radius: 12px;
+  }
+
+  .input-box textarea {
+    font-size: 16px; /* prevents iOS zoom on focus */
+  }
+
+  .input-footer {
+    font-size: 10px;
+    margin-top: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .input-area {
+    padding: 10px 10px 14px;
+  }
+
+  .input-box {
+    gap: 8px;
+    padding: 8px 8px 8px 12px;
+  }
+
+  .send-btn {
+    width: 34px;
+    height: 34px;
+  }
+
+  .input-footer {
+    font-size: 9px;
+  }
+}

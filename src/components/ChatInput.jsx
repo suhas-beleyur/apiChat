@@ -56,7 +56,7 @@ export default function ChatInput({ onSend, disabled, focusTrigger }) {
         </button>
       </div>
       <div className="input-footer">
-        Powered by NVIDIA · Falcon3-7B · Enter to send, Shift+Enter for newline
+        Powered by NVIDIA · Llama 3.2 · Enter to send, Shift+Enter for newline
       </div>
     </div>
   );

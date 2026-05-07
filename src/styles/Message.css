@@ -19,6 +19,8 @@
   font-size: 14px;
   line-height: 1.7;
   font-weight: 400;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .message-row.user .message-bubble {
@@ -174,4 +176,63 @@
 .message-bubble em {
   color: #c4b5fd;
   font-style: italic;
+}
+
+/* ── Mobile responsive ─────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .message-row {
+    padding: 5px 14px;
+  }
+
+  .message-bubble {
+    max-width: 85%;
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+
+  .message-avatar {
+    width: 24px;
+    height: 24px;
+    font-size: 10px;
+  }
+
+  .message-row.assistant .message-avatar {
+    margin-right: 8px;
+  }
+
+  .message-row.user .message-avatar {
+    margin-left: 8px;
+  }
+
+  .code-block-wrap pre {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  .message-bubble pre {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  .message-bubble code {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .message-row {
+    padding: 4px 10px;
+  }
+
+  .message-bubble {
+    max-width: 90%;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .message-avatar {
+    width: 22px;
+    height: 22px;
+    font-size: 9px;
+  }
 }

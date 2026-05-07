@@ -20,6 +20,7 @@
   --radius: 12px;
   --font-display: 'Syne', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
+  --sidebar-width: 260px;
 }
 
 body {
@@ -33,4 +34,66 @@ body {
 .app {
   display: flex;
   height: 100vh;
+  position: relative;
+}
+
+/* ── Sidebar overlay (mobile) ──────────────────────────────────────────── */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 90;
+  animation: fadeIn 0.2s ease;
+}
+
+.sidebar-overlay.visible {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── Hamburger toggle button ───────────────────────────────────────────── */
+.sidebar-toggle {
+  display: none;
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  z-index: 110;
+  width: 38px;
+  height: 38px;
+  background: var(--bg-sidebar);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+
+.sidebar-toggle:hover {
+  background: rgba(99,102,241,0.1);
+  border-color: var(--border-active);
+  color: var(--text-primary);
+}
+
+.sidebar-toggle:active {
+  transform: scale(0.93);
+}
+
+/* ── Mobile responsive ─────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .sidebar-toggle {
+    display: flex;
+  }
+
+  .sidebar-overlay.visible {
+    display: block;
+  }
 }

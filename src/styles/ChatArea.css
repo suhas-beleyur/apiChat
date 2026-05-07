@@ -160,4 +160,23 @@
   color: #f87171;
 }
 
+/* ── Mobile responsive ─────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .chat-header {
+    padding: 14px 16px 14px 58px; /* room for hamburger */
+  }
 
+  .chat-title {
+    font-size: 13px;
+  }
+
+  .messages-container {
+    padding: 16px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .chat-header {
+    padding: 12px 12px 12px 54px;
+  }
+}
