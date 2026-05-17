@@ -12,7 +12,7 @@ export const MOCK_HISTORY = [
   "Fix CORS error in Node.js",
 ];
 
-export const MODEL_NAME = "tiiuae/falcon3-7b-instruct";
+export const MODEL_NAME = "meta/llama-3.2-3b-instruct";
 
 // Use Vite's dev proxy (/api/nvidia → https://integrate.api.nvidia.com)
 // This avoids CORS errors when calling the API directly from the browser.

@@ -1,9 +1,9 @@
 import "../styles/Sidebar.css";
 import { MODEL_NAME } from "../constants";
 
-export default function Sidebar({ sessions, activeId, onNewChat, onLoadSession }) {
+export default function Sidebar({ sessions, activeId, onNewChat, onLoadSession, isOpen }) {
   return (
-    <aside className="sidebar">
+    <aside className={`sidebar${isOpen ? " open" : ""}`}>
       <div className="sidebar-logo">
         <div className="logo-icon">C</div>
         <span className="logo-text">Codeer</span>
